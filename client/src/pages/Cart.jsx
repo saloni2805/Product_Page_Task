@@ -21,9 +21,10 @@ function Cart() {
   const handleDelete = async (id) => {
     setLoading(true)
     try {
-      const res = await axios.delete(`http://localhost:5000/api/delete/${id}`)
-      setCartItems(res.data.data || []) // ensure it's always an array
-      alert("Data deleted successfully")
+      await axios.delete(`http://localhost:5000/api/delete/${id}`)
+      const res = await axios.get("http://localhost:5000/api/get_cart_products")
+      setCartItems(res.data.data || [])
+      alert("Item deleted successfully")
     } catch (err) {
       console.error("Error deleting cart item:", err)
     } finally {
